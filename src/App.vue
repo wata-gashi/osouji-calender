@@ -26,6 +26,9 @@
      background-color: #42b983;
    }
   }
+  .btn-light{
+    background-color: #6792ba;
+  }
   .btn-container{
     display: flex;
     justify-content: flex-end;
