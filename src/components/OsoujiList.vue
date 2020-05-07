@@ -12,7 +12,7 @@
     おそうじが登録されていません。
   </p>
   <div class="btn-container">
-    <router-link :to="{ name: 'add' }" class="btn">追加</router-link>
+    <com-button @Open="Open" click-event="Open">追加</com-button>
   </div>
 </div>
 </template>
@@ -21,6 +21,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import OsoujiListItem from './OsoujiListItem'
+import ComButton from './ComButton'
 
 Vue.use(VueRouter)
 
@@ -29,7 +30,8 @@ let nextOsoujiId = 1
 export default {
   name: 'OsoujiList',
   components: {
-    'osouji-list-item': OsoujiListItem
+    'osouji-list-item': OsoujiListItem,
+    'com-button': ComButton
   },
   data () {
     return {
@@ -47,11 +49,14 @@ export default {
     }
   },
   methods: {
-    AddOsouji () {
+    AddOsouji (data) {
       this.osoujiList.push({
         id: nextOsoujiId++,
-        name: 'addOsouji'
+        name: data.osoujiName
       })
+    },
+    Open () {
+      this.$router.push('add')
     }
   },
   mounted: function () {

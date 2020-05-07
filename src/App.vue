@@ -22,9 +22,12 @@
     text-decoration: none;
     cursor: pointer;
 
-  &:hover{
-     background-color: #42b983;
-   }
+    &:not(.disabled):hover{
+      background-color: #42b983;
+    }
+  }
+  .disabled{
+    background-color: #444444;
   }
   .btn-light{
     background-color: #6792ba;

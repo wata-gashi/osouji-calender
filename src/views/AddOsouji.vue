@@ -2,29 +2,48 @@
   <div class="dialog">
     <div class="dialog-inner">
       <h3>おそうじの追加</h3>
-      <p>test</p>
+      <label>
+        <input v-model="osoujiName" placeholder="名前">
+      </label>
       <div class="btn-container">
-        <a class="btn" @click="add">追加</a>
-        <a class="btn" @click="close">閉じる</a>
+        <com-button @add="add" :is-disabled="addDisabled" click-event="add">追加</com-button>
+        <com-button @close="close" click-event="close">閉じる</com-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'AddOsouji',
-  methods: {
-    add () {
-      this.$eventHub.$emit('add-osouji')
-      this.$router.back()
-      // this.$router.push('/')
+  import ComButton from '../components/ComButton'
+
+  export default {
+    name: 'AddOsouji',
+    components: {
+      'com-button': ComButton
     },
-    close () {
-      this.$router.back()
+    data () {
+      return {
+        osoujiName: ''
+      }
+    },
+    computed: {
+      addDisabled: function () {
+        return !this.osoujiName
+      }
+    },
+    methods: {
+      add () {
+        this.$eventHub.$emit('add-osouji', {
+          osoujiName: this.osoujiName
+        })
+        this.$router.back()
+        // this.$router.push('/')
+      },
+      close () {
+        this.$router.back()
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
