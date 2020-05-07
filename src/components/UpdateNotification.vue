@@ -6,8 +6,8 @@
         <com-button class="btn-light"
                     @updateCache="updateCache"
                     click-event="updateCache">更新</com-button>
-        <com-button class="btn-light" @close="visible = false"
-                    click-event="close">閉じる</com-button>
+<!--        <com-button class="btn-light" @close="visible = false"
+                    click-event="close">閉じる</com-button> !-->
       </div>
     </div>
   </transition>
@@ -42,7 +42,7 @@
     created () {
       navigator.serviceWorker
         .addEventListener('message', event => {
-          if (event.data === 'latestDetection') {
+          if (event.data.toString() === 'latestDetection') {
             this.showNotification()
           }
         })
