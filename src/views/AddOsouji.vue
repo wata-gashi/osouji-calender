@@ -1,10 +1,12 @@
 <template>
   <div class="dialog">
     <div class="dialog-inner">
-      <h3>おそうじの追加</h3>
-      <label>
-        <input v-model="osoujiName" placeholder="名前">
-      </label>
+      <h2 class="title">おそうじの追加</h2>
+      <div class="dialog-inner-elements">
+        <label class="label">おそうじ名:
+          <input v-model="osoujiName">
+        </label>
+      </div>
       <div class="btn-container">
         <com-button @add="add" :is-disabled="addDisabled" click-event="add">追加</com-button>
         <com-button @close="close" click-event="close">閉じる</com-button>
@@ -63,6 +65,20 @@
       background-color: white;
       padding: 30px;
       width: 300px;
+
+      .title{
+        text-align: center;
+      }
+
+      &-elements{
+        margin-bottom: 8px;
+        padding: 10px 0;
+        border-bottom: solid 1px #888;
+      }
+    }
+
+    .label{
+      font-size: 1.1em;
     }
   }
 </style>

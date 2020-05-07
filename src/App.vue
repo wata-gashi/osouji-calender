@@ -21,6 +21,7 @@
     transition: all 200ms ease-in-out;
     text-decoration: none;
     cursor: pointer;
+    user-select: none;
 
     &:not(.disabled):hover{
       background-color: #42b983;
