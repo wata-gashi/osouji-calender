@@ -41,7 +41,9 @@
     created () {
       navigator.serviceWorker
         .addEventListener('message', event => {
+          console.log('test1')
           if (event.data.toString() === 'latestDetection') {
+            console.log('test2')
             this.showNotification()
           }
         })

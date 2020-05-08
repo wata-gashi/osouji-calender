@@ -45,16 +45,7 @@ export default {
     return {
       listName: 'おそうじリスト',
       showRemove: false,
-      osoujiList: [
-        {
-          id: nextOsoujiId++,
-          name: 'hoge'
-        },
-        {
-          id: nextOsoujiId++,
-          name: 'test'
-        }
-      ]
+      osoujiList: []
     }
   },
   methods: {
@@ -63,6 +54,7 @@ export default {
         id: nextOsoujiId++,
         name: data.osoujiName
       })
+      this.saveOsoujiList()
     },
     Open () {
       this.$router.push('add')
@@ -71,6 +63,20 @@ export default {
       this.osoujiList = this.osoujiList.filter(osouji => {
         return osouji.id !== id
       })
+      this.saveOsoujiList()
+    },
+    saveOsoujiList () {
+      localStorage.setItem('osoujiList', JSON.stringify(this.osoujiList))
+    }
+  },
+  created: function () {
+    const cacheOsoujiList = localStorage.getItem('osoujiList')
+    if (cacheOsoujiList && cacheOsoujiList.length > 0) {
+      this.osoujiList = JSON.parse(cacheOsoujiList)
+      this.osoujiList.forEach(osouji => {
+        osouji.id = nextOsoujiId++
+      })
+      this.saveOsoujiList()
     }
   },
   mounted: function () {
