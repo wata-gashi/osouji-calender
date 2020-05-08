@@ -4,12 +4,14 @@
       <h2 class="title">おそうじの追加</h2>
       <div class="dialog-inner-elements">
         <label class="label">おそうじ名:
-          <input v-model="osoujiName">
+          <input id="text-osouji-name"
+                 v-model="osoujiName"
+                 @keydown.enter="osoujiName?add.call():''">
         </label>
       </div>
       <div class="btn-container">
-        <com-button @add="add" :is-disabled="addDisabled" click-event="add">追加</com-button>
-        <com-button @close="close" click-event="close">閉じる</com-button>
+        <com-button :is-disabled="addDisabled" :click-event="add">追加</com-button>
+        <com-button :click-event="close">閉じる</com-button>
       </div>
     </div>
   </div>
@@ -44,6 +46,9 @@
       close () {
         this.$router.back()
       }
+    },
+    mounted () {
+      document.getElementById('text-osouji-name').focus()
     }
   }
 </script>

@@ -1,18 +1,26 @@
 <template>
 <div id="osouji-list">
   <h3 v-text="listName"></h3>
+  <div class="btn-container">
+    <label class="edit-button">
+      <input type="checkbox" v-model="showRemove"/>
+      編集
+    </label>
+  </div>
   <ul class="osouji-list" v-if="osoujiList.length">
     <osouji-list-item
       v-for="osouji in osoujiList"
       :key="osouji.id"
       :osouji="osouji"
+      :remove-visible="showRemove"
+      @remove="RemoveOsouji"
     />
   </ul>
   <p v-else>
     おそうじが登録されていません。
   </p>
   <div class="btn-container">
-    <com-button @Open="Open" click-event="Open">追加</com-button>
+    <com-button :click-event="Open">追加</com-button>
   </div>
 </div>
 </template>
@@ -36,6 +44,7 @@ export default {
   data () {
     return {
       listName: 'おそうじリスト',
+      showRemove: false,
       osoujiList: [
         {
           id: nextOsoujiId++,
@@ -57,6 +66,11 @@ export default {
     },
     Open () {
       this.$router.push('add')
+    },
+    RemoveOsouji (id) {
+      this.osoujiList = this.osoujiList.filter(osouji => {
+        return osouji.id !== id
+      })
     }
   },
   mounted: function () {

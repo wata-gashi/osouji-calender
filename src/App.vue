@@ -38,6 +38,7 @@
     justify-content: flex-end;
   }
   .osouji-list{
+    position: relative;
     padding: 0;
     font: 14px / 1.6 'arial narrow', sans-serif;
     max-width: 350px;
@@ -52,31 +53,41 @@
       background: #cff6cf;
       border-left: solid 5px #377937;
       box-shadow: 1px 1px 2px rgba(#000, 0.1);
+      overflow: hidden;
 
-//      transition: 0.3s;
-
-/*      &:before{
-        counter-increment: list;
-        content: "";
-        display: block;
+      .remove{
+        display: flex;
         position: absolute;
-        left: 10px;
-        height: 10px;
-        width: 10px;
-        border-radius: 50%;
-        background: white;
-        top: 50%;
-        -moz-transform: translateY(-50%);
-        -webkit-transform: translateY(-50%);
-        -o-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
-      }
+        top: 0;
+        right: 0;
+        height: 100%;
+        padding: 0 15px;
+        background-color: #ff6969;
+        font-weight: normal;
+        font-size: 1.2em;
+        color: rgba(white, 0.9);
+        align-items: center;
+        justify-content: center;
+        transition: transform .3s, opacity .3s, background-color .2s;
+        opacity: 1;
 
-      &:hover{
-        background: #377937;
-      }*/
+        &[target="false"]{
+          transform: translateX(100%);
+          opacity: 0;
+        }
+
+        &[target="true"]{
+          cursor: pointer;
+
+          &:hover{
+            background-color: #d01818;
+          }
+        }
+      }
     }
+  }
+  .edit-button{
+
   }
   #header-o{
     width: 100vw;

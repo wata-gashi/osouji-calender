@@ -1,6 +1,6 @@
 <template>
   <div class="btn" :class="{'disabled': isDisabled}"
-       @click="clickEvent&&!isDisabled?$emit(clickEvent):''">
+       @click="clickEvent&&!isDisabled?clickEvent.call():''">
     <slot></slot>
   </div>
 </template>
@@ -9,7 +9,7 @@
   export default {
     name: 'ComButton',
     props: {
-      clickEvent: String,
+      clickEvent: Function,
       isDisabled: {
         type: Boolean,
         default: false

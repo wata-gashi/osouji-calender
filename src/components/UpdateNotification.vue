@@ -4,8 +4,7 @@
       <div class="msg">{{message}}</div>
       <div class="btn-container">
         <com-button class="btn-light"
-                    @updateCache="updateCache"
-                    click-event="updateCache">更新</com-button>
+                    :click-event="updateCache">更新</com-button>
 <!--        <com-button class="btn-light" @close="visible = false"
                     click-event="close">閉じる</com-button> !-->
       </div>
@@ -50,7 +49,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .update-notification{
     display: inline;
     position: fixed;
