@@ -38,15 +38,18 @@
         })
       }
     },
-    created () {
-      navigator.serviceWorker
+    mounted () {
+      /** navigator.serviceWorker
         .addEventListener('message', event => {
           console.log('test1')
           if (event.data.toString() === 'latestDetection') {
             console.log('test2')
             this.showNotification()
           }
-        })
+        }) **/
+      const { port1, port2 } = new MessageChannel()
+      port1.onmessage = event => this.showNotification()
+      navigator.serviceWorker.controller.postMessage('init', [port2])
     }
   }
 </script>
