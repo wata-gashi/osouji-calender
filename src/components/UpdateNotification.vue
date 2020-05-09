@@ -40,16 +40,6 @@
       }
     },
     created () {
-      if (navigator.serviceWorker) {
-        navigator.serviceWorker
-          .addEventListener('message', event => {
-            console.log('test1')
-            if (event.data.toString() === 'latestDetection') {
-              console.log('test2')
-              this.showNotification()
-            }
-          })
-      }
       /** console.log(navigator.serviceWorker)
       if (navigator.serviceWorker.controller) {
         const { port1, port2 } = new MessageChannel()
@@ -58,9 +48,15 @@
       }**/
     },
     mounted () {
-      console.log('test3')
       if (navigator.serviceWorker.controller) {
-        console.log('post! test4')
+        navigator.serviceWorker
+          .addEventListener('message', event => {
+            console.log('test1')
+            if (event.data.toString() === 'latestDetection') {
+              console.log('test2')
+              this.showNotification()
+            }
+          })
         navigator.serviceWorker.controller.postMessage('updateCheck')
       }
     }
@@ -76,6 +72,7 @@
     right: 0;
     background-color: rgba(#111, 0.8);
     padding: 5px;
+    z-index: 10;
 
     .msg{
       color: white;

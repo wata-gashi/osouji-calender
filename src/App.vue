@@ -8,6 +8,7 @@
   body{
     font-family: "Meiryo", fantasy;
     margin: 0;
+    user-select: none;
   }
   .app{
     max-width: 500px;
@@ -22,7 +23,6 @@
     transition: all 200ms ease-in-out;
     text-decoration: none;
     cursor: pointer;
-    user-select: none;
 
     &:not(.disabled):hover{
       background-color: #42b983;
@@ -113,6 +113,7 @@
       line-height: 1;
       height: $checkbox-size / 2;
       overflow: hidden;
+      cursor: pointer;
 
       &-main{
         display: none;
@@ -152,6 +153,8 @@
     left: 0;
     right: 0;
     background-color: #1f6f00;
-    height: 40px;
+    padding: 10px 0;
+    color: white;
+    text-align: center;
   }
 </style>
