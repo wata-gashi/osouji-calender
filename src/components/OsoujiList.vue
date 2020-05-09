@@ -1,11 +1,13 @@
 <template>
-<div id="osouji-list">
-  <h3 v-text="listName"></h3>
+<div id="osouji-list-root">
+  <div id="osouji-list-title" v-text="listName"></div>
   <div class="btn-container">
-    <label class="edit-button">
-      <input type="checkbox" v-model="showRemove"/>
-      編集
-    </label>
+    <div class="checkbox-area">
+      <label class="checkbox-area-label">
+        <input type="checkbox" class="checkbox-area-label-main" v-model="showRemove"/>
+        <span class="checkbox-area-label-box"></span>
+      </label>
+    </div>
   </div>
   <ul class="osouji-list" v-if="osoujiList.length">
     <osouji-list-item
@@ -86,9 +88,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  #osouji-list{
+  #osouji-list-root{
     width: 80%;
-    margin: 0 auto;
+    margin: 40px auto auto;
     max-width: 400px;
+  }
+
+  #osouji-list-title{
+    padding: 7px 0;
+    font-size: x-large;
+    font-weight: bold;
+    color: #1f6f00;
   }
 </style>

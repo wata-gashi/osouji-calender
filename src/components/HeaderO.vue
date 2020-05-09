@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <h1>{{title}}</h1>
+    {{title}}
   </div>
 </template>
 
