@@ -32,7 +32,7 @@
       },
       updateCache () {
         if (navigator.serviceWorker.controller) {
-          navigator.serviceWorker.controller.postMessage('updateCache')
+          navigator.serviceWorker.controller.postMessage({type: 'updateCache'})
         }
         setTimeout(function () {
           location.reload()
@@ -52,12 +52,12 @@
         navigator.serviceWorker
           .addEventListener('message', event => {
             console.log('test1')
-            if (event.data.toString() === 'latestDetection') {
+            if (event.data.type === 'latestDetection') {
               console.log('test2')
               this.showNotification()
             }
           })
-        navigator.serviceWorker.controller.postMessage('updateCheck')
+        navigator.serviceWorker.controller.postMessage({type: 'updateCheck'})
       }
     }
   }
