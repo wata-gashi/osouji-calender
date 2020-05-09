@@ -31,25 +31,38 @@
         this.visible = true
       },
       updateCache () {
-        navigator.serviceWorker.controller.postMessage('updateCache')
-        this.visible = false
+        if (navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage('updateCache')
+        }
         setTimeout(function () {
           location.reload()
         })
       }
     },
+    created () {
+      if (navigator.serviceWorker) {
+        navigator.serviceWorker
+          .addEventListener('message', event => {
+            console.log('test1')
+            if (event.data.toString() === 'latestDetection') {
+              console.log('test2')
+              this.showNotification()
+            }
+          })
+      }
+      /** console.log(navigator.serviceWorker)
+      if (navigator.serviceWorker.controller) {
+        const { port1, port2 } = new MessageChannel()
+        port1.onmessage = event => { if (event.data.toString() === 'latestDetection') this.showNotification() }
+        navigator.serviceWorker.controller.postMessage('init', [port2])
+      }**/
+    },
     mounted () {
-      /** navigator.serviceWorker
-        .addEventListener('message', event => {
-          console.log('test1')
-          if (event.data.toString() === 'latestDetection') {
-            console.log('test2')
-            this.showNotification()
-          }
-        }) **/
-      const { port1, port2 } = new MessageChannel()
-      port1.onmessage = event => this.showNotification()
-      navigator.serviceWorker.controller.postMessage('init', [port2])
+      console.log('test3')
+      if (navigator.serviceWorker.controller) {
+        console.log('post! test4')
+        navigator.serviceWorker.controller.postMessage('updateCheck')
+      }
     }
   }
 </script>
