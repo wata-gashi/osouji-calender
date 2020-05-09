@@ -145,4 +145,13 @@
     font-weight: bold;
     color: white;
   }
+
+  #footer-o{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #1f6f00;
+    height: 40px;
+  }
 </style>
