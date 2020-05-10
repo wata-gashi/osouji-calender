@@ -48,6 +48,7 @@
       }**/
     },
     mounted () {
+      this.$eventHub.$on('show-notification', this.showNotification)
       if (navigator.serviceWorker.controller) {
         navigator.serviceWorker
           .addEventListener('message', event => {

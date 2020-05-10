@@ -1,6 +1,6 @@
 <template>
   <div id="footer-o">
-    {{version}}
+    pre-{{version}}
   </div>
 </template>
 
@@ -9,8 +9,19 @@
     name: 'FooterO',
     data () {
       return {
-        version: 'pre-0.1.1'
+        version: '0.1.2'
       }
+    },
+    methods: {
+      setVersion (data) {
+        if (this.version !== data.version) {
+          this.version = data.version
+          this.$eventHub.$emit('show-notification')
+        }
+      }
+    },
+    created () {
+      this.$eventHub.$on('set-version', this.setVersion)
     }
   }
 </script>

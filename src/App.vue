@@ -3,6 +3,28 @@
     <router-view/>
   </div>
 </template>
+<script>
+  export default {
+    mounted () {
+      const em = this.$eventHub
+      window.setTimeout(function () {
+        const xmlhttp = new XMLHttpRequest()
+
+        xmlhttp.onreadystatechange = function () {
+          if (xmlhttp.readyState === 4) {
+            if (xmlhttp.status === 200) {
+              const jsondata = JSON.parse(xmlhttp.responseText)
+
+              em.$emit('set-version', jsondata)
+            }
+          }
+        }
+        xmlhttp.open('GET', '/static/version.json')
+        xmlhttp.send()
+      }, 3000)
+    }
+  }
+</script>
 
 <style lang="scss">
   body{
