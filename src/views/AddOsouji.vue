@@ -1,7 +1,7 @@
 <template>
   <div class="dialog">
     <div class="dialog-inner">
-      <h2 class="title">おそうじの追加</h2>
+      <div class="title">おそうじの追加</div>
       <div class="dialog-inner-elements">
         <label class="label">おそうじ名:
           <input id="text-osouji-name"
@@ -52,38 +52,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  .dialog{
-    position: absolute;
-    z-index: 10;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background-color: rgba(#222, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &-inner{
-      background-color: white;
-      padding: 30px;
-      width: 300px;
-
-      .title{
-        text-align: center;
-      }
-
-      &-elements{
-        margin-bottom: 8px;
-        padding: 10px 0;
-        border-bottom: solid 1px #888;
-      }
-    }
-
-    .label{
-      font-size: 1.1em;
-    }
-  }
-</style>

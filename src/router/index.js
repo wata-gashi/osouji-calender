@@ -1,26 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import EmptyRouterView from '../views/EmptyRouterView'
 import Home from '../views/Home.vue'
 import AddOsouji from '../views/AddOsouji'
+import OsoujiInfo from '../views/OsoujiInfo'
 
 Vue.use(Router)
 
 const routes = [{
   path: '/',
-  component: EmptyRouterView,
+  component: Home,
   children: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
     {
       name: 'add',
       path: 'add',
       components: {
-        default: Home,
-        dialog: AddOsouji
+        'add-dialog': AddOsouji
+      }
+    },
+    {
+      name: 'osouji',
+      path: 'osouji/:id',
+      components: {
+        'osouji-dialog': OsoujiInfo
       }
     }
   ]

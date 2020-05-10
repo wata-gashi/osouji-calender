@@ -1,9 +1,9 @@
 <template>
   <transition name="fade">
-    <li class="osouji-item">
+    <li class="osouji-item" @click="bodyClick">
       {{osouji.name}}
       <div class="remove" :target="removeVisible.toString()"
-           @click="$emit('remove', osouji.id)">
+           @click="removeClick($event)">
         削除
       </div>
     </li>
@@ -21,10 +21,19 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  methods: {
+    bodyClick () {
+      this.$router.push({
+        name: 'osouji',
+        params: {
+          id: this.osouji.id
+        }})
+    },
+    removeClick (event) {
+      this.$emit('remove', this.osouji.id)
+      event.stopPropagation()
+    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

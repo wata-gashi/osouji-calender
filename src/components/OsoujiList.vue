@@ -15,14 +15,14 @@
       :key="osouji.id"
       :osouji="osouji"
       :remove-visible="showRemove"
-      @remove="RemoveOsouji"
+      @remove="removeOsouji"
     />
   </ul>
   <p v-else>
     おそうじが登録されていません。
   </p>
   <div class="btn-container">
-    <com-button :click-event="Open">追加</com-button>
+    <com-button :click-event="open">追加</com-button>
   </div>
 </div>
 </template>
@@ -43,29 +43,30 @@ export default {
     'osouji-list-item': OsoujiListItem,
     'com-button': ComButton
   },
+  props: {
+    osoujiList: Array,
+    listFunc: Object
+  },
   data () {
     return {
       listName: 'おそうじリスト',
-      showRemove: false,
-      osoujiList: []
+      showRemove: false
     }
   },
   methods: {
-    AddOsouji (data) {
-      this.osoujiList.push({
+    addOsouji (data) {
+      this.listFunc.pushOsoujiList({
         id: nextOsoujiId++,
         name: data.osoujiName
-      })
-      this.saveOsoujiList()
+      }).then(() => this.saveOsoujiList())
     },
-    Open () {
+    open () {
       this.$router.push('add')
     },
-    RemoveOsouji (id) {
-      this.osoujiList = this.osoujiList.filter(osouji => {
+    removeOsouji (id) {
+      this.listFunc.setOsoujiList(this.osoujiList.filter(osouji => {
         return osouji.id !== id
-      })
-      this.saveOsoujiList()
+      })).then(() => this.saveOsoujiList())
     },
     saveOsoujiList () {
       localStorage.setItem('osoujiList', JSON.stringify(this.osoujiList))
@@ -74,15 +75,14 @@ export default {
   created: function () {
     const cacheOsoujiList = localStorage.getItem('osoujiList')
     if (cacheOsoujiList && cacheOsoujiList.length > 0) {
-      this.osoujiList = JSON.parse(cacheOsoujiList)
-      this.osoujiList.forEach(osouji => {
-        osouji.id = nextOsoujiId++
+      this.listFunc.setOsoujiList(JSON.parse(cacheOsoujiList)).then(() => {
+        this.osoujiList.forEach(osouji => {
+          osouji.id = nextOsoujiId++
+        })
+        this.saveOsoujiList()
       })
-      this.saveOsoujiList()
     }
-  },
-  mounted: function () {
-    this.$eventHub.$on('add-osouji', this.AddOsouji)
+    this.$eventHub.$on('add-osouji', this.addOsouji)
   }
 }
 </script>

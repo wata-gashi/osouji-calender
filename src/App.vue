@@ -85,6 +85,7 @@
       box-shadow: 1px 1px 2px rgba(#000, 0.1);
       overflow: hidden;
       text-overflow: ellipsis;
+      cursor: pointer;
 
       .remove{
         display: flex;
@@ -160,6 +161,42 @@
         background: #ddd;
         transition: .3s;
       }
+    }
+  }
+
+  .dialog{
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(#222, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-inner{
+      background-color: white;
+      padding: 30px;
+      width: 300px;
+
+      .title{
+        text-align: center;
+        font-size: x-large;
+        font-weight: bold;
+        color: #1f6f00;
+      }
+
+      &-elements{
+        margin-bottom: 8px;
+        padding: 10px 0;
+        border-bottom: solid 1px #888;
+      }
+    }
+
+    .label{
+      font-size: 1.1em;
     }
   }
 

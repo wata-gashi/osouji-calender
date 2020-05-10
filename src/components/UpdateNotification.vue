@@ -31,25 +31,25 @@
         this.visible = true
       },
       updateCache () {
-        if (navigator.serviceWorker.controller) {
+        /** if (navigator.serviceWorker.controller) {
           navigator.serviceWorker.controller.postMessage({type: 'updateCache'})
-        }
+        }**/
         setTimeout(function () {
           location.reload()
         })
       }
     },
-    created () {
-      /** console.log(navigator.serviceWorker)
+    /** created () {
+      console.log(navigator.serviceWorker)
       if (navigator.serviceWorker.controller) {
         const { port1, port2 } = new MessageChannel()
         port1.onmessage = event => { if (event.data.toString() === 'latestDetection') this.showNotification() }
         navigator.serviceWorker.controller.postMessage('init', [port2])
-      }**/
-    },
+      }
+    },**/
     mounted () {
       this.$eventHub.$on('show-notification', this.showNotification)
-      if (navigator.serviceWorker.controller) {
+      /** if (navigator.serviceWorker.controller) {
         navigator.serviceWorker
           .addEventListener('message', event => {
             console.log('test1')
@@ -59,7 +59,7 @@
             }
           })
         navigator.serviceWorker.controller.postMessage({type: 'updateCheck'})
-      }
+      }**/
     }
   }
 </script>
