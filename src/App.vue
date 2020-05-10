@@ -4,6 +4,13 @@
   </div>
 </template>
 <script>
+  var isLocalhost = Boolean(window.location.hostname === 'localhost' ||
+    window.location.hostname === '[::1]' ||
+    window.location.hostname.match(
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+    )
+  )
+
   export default {
     mounted () {
       const em = this.$eventHub
@@ -19,7 +26,7 @@
             }
           }
         }
-        xmlhttp.open('GET', '/static/version.json')
+        xmlhttp.open('GET', (isLocalhost ? '' : '/osouji-calender') + '/static/version.json')
         xmlhttp.send()
       }, 3000)
     }
