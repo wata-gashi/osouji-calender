@@ -1,6 +1,6 @@
 <template>
-  <div id="home">
-    <div id="title">ホーム</div>
+  <div id="setting">
+    <div id="title">設定</div>
   </div>
 </template>
 
@@ -20,7 +20,7 @@
 <style lang="scss" scoped>
   @import "../assets/sass/global";
 
-  #home{
+  #setting{
     @extend %root-body;
   }
 </style>

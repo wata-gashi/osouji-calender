@@ -3,7 +3,7 @@
     <li class="osouji-item" @click="bodyClick">
       {{osouji.name}}
       <div class="remove" :target="removeVisible.toString()"
-           @click="removeClick($event)">
+           @click.stop="$emit('remove', osouji.id)">
         削除
       </div>
     </li>
@@ -29,10 +29,6 @@ export default {
         params: {
           id: this.osouji.id
         }})
-    },
-    removeClick (event) {
-      this.$emit('remove', this.osouji.id)
-      event.stopPropagation()
     }
   }
 }

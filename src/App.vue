@@ -1,9 +1,20 @@
 <template>
   <div id="app">
-    <router-view/>
+    <header-o id="header-o"></header-o>
+    <div id="view-root">
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
+    </div>
+    <footer-o></footer-o>
+    <update-notification></update-notification>
   </div>
 </template>
 <script>
+  import HeaderO from './components/HeaderO'
+  import FooterO from './components/FooterO'
+  import UpdateNotification from './components/UpdateNotification'
+
   var isLocalhost = Boolean(window.location.hostname === 'localhost' ||
     window.location.hostname === '[::1]' ||
     window.location.hostname.match(
@@ -12,6 +23,11 @@
   )
 
   export default {
+    components: {
+      'header-o': HeaderO,
+      'footer-o': FooterO,
+      'update-notification': UpdateNotification
+    },
     mounted () {
       const em = this.$eventHub
       window.setTimeout(function () {
@@ -39,9 +55,15 @@
     margin: 0;
     user-select: none;
   }
-  .app{
+  #app{
     max-width: 500px;
     margin: 0 auto;
+  }
+  #title{
+    padding: 7px 0;
+    font-size: x-large;
+    font-weight: bold;
+    color: #1f6f00;
   }
   .btn{
     border: none;
@@ -70,7 +92,6 @@
   .osouji-list{
     position: relative;
     padding: 0;
-//    font: 14px / 1.6 'arial narrow', sans-serif;
     font-size: 14px / 1.6;
     max-width: 350px;
     list-style: none;
@@ -165,7 +186,7 @@
   }
 
   .dialog{
-    position: absolute;
+    position: fixed;
     z-index: 10;
     width: 100%;
     height: 100%;
@@ -200,6 +221,10 @@
     }
   }
 
+  #view-root{
+    margin: 34px 0 55px
+  }
+
   #header-o{
     position: fixed;
     top: 0;
@@ -211,16 +236,5 @@
     font-size: larger;
     font-weight: bold;
     color: white;
-  }
-
-  #footer-o{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #1f6f00;
-    padding: 10px 0;
-    color: white;
-    text-align: center;
   }
 </style>
