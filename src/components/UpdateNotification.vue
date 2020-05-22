@@ -1,12 +1,12 @@
 <template>
   <transition name="fade">
     <div class="update-notification" v-show="visible">
-      <div class="msg">{{message}}</div>
+      <div class="msg" v-text="message"></div>
       <div class="btn-container">
+        <span class="msg">NEW: ver. {{version}}</span>
+        <span class="btn-container-spacer"></span>
         <com-button class="btn-light"
                     :click-event="updateCache">更新</com-button>
-<!--        <com-button class="btn-light" @close="visible = false"
-                    click-event="close">閉じる</com-button> !-->
       </div>
     </div>
   </transition>
@@ -15,6 +15,13 @@
 <script>
   import ComButton from './ComButton'
 
+  const isLocalhost = Boolean(window.location.hostname === 'localhost' ||
+    window.location.hostname === '[::1]' ||
+    window.location.hostname.match(
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+    )
+  )
+
   export default {
     name: 'UpdateNotification',
     components: {
@@ -22,6 +29,7 @@
     },
     data () {
       return {
+        version: '0.1.6',
         visible: false,
         message: '新しいバージョンが配信されています。'
       }
@@ -37,7 +45,24 @@
       }
     },
     mounted () {
-      this.$eventHub.$on('show-notification', this.showNotification)
+      window.setTimeout(function () {
+        const xmlhttp = new XMLHttpRequest()
+
+        xmlhttp.onreadystatechange = function () {
+          if (xmlhttp.readyState === 4) {
+            if (xmlhttp.status === 200) {
+              const jsondata = JSON.parse(xmlhttp.responseText)
+
+              if (this.version !== jsondata.version) {
+                this.version = jsondata.version
+                this.showNotification()
+              }
+            }
+          }
+        }
+        xmlhttp.open('GET', (isLocalhost ? '' : '/osouji-calender') + '/static/version.json')
+        xmlhttp.send()
+      }, 3000)
     }
   }
 </script>
@@ -57,7 +82,6 @@
       color: white;
       font-size: 1.2em;
       text-align: center;
-      font-weight: bold;
       margin-top: 0.5em;
       margin-bottom: 0.5em;
     }

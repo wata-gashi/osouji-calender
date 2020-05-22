@@ -19,17 +19,10 @@
     name: 'FooterO',
     data () {
       return {
-        version: '0.1.5',
         inTab: 'init'
       }
     },
     methods: {
-      setVersion (data) {
-        if (this.version !== data.version) {
-          this.version = data.version
-          this.$eventHub.$emit('show-notification')
-        }
-      },
       where (from) {
         let path = from.split('/')
         if (!path[1]) this.inTab = '/'
@@ -42,7 +35,6 @@
       }
     },
     created () {
-      this.$eventHub.$on('set-version', this.setVersion)
       this.where(this.$route.path)
     }
   }
@@ -56,7 +48,6 @@
     right: 0;
     padding: 4px 0;
     background-color: #1f6f00;
-    color: white;
     text-align: center;
     justify-content: space-between;
   }
@@ -71,6 +62,7 @@
       font-weight: bold;
       opacity: 0.7;
       transition: .3s;
+      color: white;
 
       &:after{
         position: absolute;
@@ -81,6 +73,7 @@
         top: 0;
         left: 0;
         border-bottom: 3px solid white;
+        border-radius: 2px;
         transform: scaleX(0);
         transition: .3s;
       }

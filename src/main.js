@@ -6,6 +6,9 @@ import EventHub from './EventHub'
 
 Vue.config.productionTip = false
 Vue.use(EventHub)
+Vue.directive('visible', function (el, binding, vnode) {
+  el.style.visibility = binding.value ? 'visible' : 'hidden'
+})
 
 new Vue({
   router,

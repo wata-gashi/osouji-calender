@@ -15,45 +15,23 @@
   import FooterO from './components/FooterO'
   import UpdateNotification from './components/UpdateNotification'
 
-  var isLocalhost = Boolean(window.location.hostname === 'localhost' ||
-    window.location.hostname === '[::1]' ||
-    window.location.hostname.match(
-      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-    )
-  )
-
   export default {
     components: {
       'header-o': HeaderO,
       'footer-o': FooterO,
       'update-notification': UpdateNotification
-    },
-    mounted () {
-      const em = this.$eventHub
-      window.setTimeout(function () {
-        const xmlhttp = new XMLHttpRequest()
-
-        xmlhttp.onreadystatechange = function () {
-          if (xmlhttp.readyState === 4) {
-            if (xmlhttp.status === 200) {
-              const jsondata = JSON.parse(xmlhttp.responseText)
-
-              em.$emit('set-version', jsondata)
-            }
-          }
-        }
-        xmlhttp.open('GET', (isLocalhost ? '' : '/osouji-calender') + '/static/version.json')
-        xmlhttp.send()
-      }, 3000)
     }
   }
 </script>
 
 <style lang="scss">
-  body{
+  *{
     font-family: "Meiryo", fantasy;
-    margin: 0;
     user-select: none;
+    color: #1f6f00;
+  }
+  body{
+    margin: 0;
   }
   #app{
     max-width: 500px;
@@ -65,29 +43,18 @@
     font-weight: bold;
     color: #1f6f00;
   }
-  .btn{
-    border: none;
-    background-color: #2c3e50;
-    color: white;
-    padding: 10px 20px;
-    margin: 3px;
-    transition: all 200ms ease-in-out;
-    text-decoration: none;
-    cursor: pointer;
-
-    &:not(.disabled):hover{
-      background-color: #42b983;
-    }
-  }
-  .disabled{
-    background-color: #444444;
-  }
-  .btn-light{
-    background-color: #6792ba;
-  }
   .btn-container{
     display: flex;
     justify-content: flex-end;
+
+    &-left{
+      justify-content: flex-start;
+    }
+
+    &-spacer{
+      content: "";
+      width: 5px;
+    }
   }
   .osouji-list{
     position: relative;
@@ -140,51 +107,6 @@
     }
   }
 
-  $checkbox-size: 50px;
-
-  .checkbox-area{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &:before{
-      content: "編集:";
-      color: #1f6f00;
-      margin-right: 3px;
-      padding: 0 3px;
-    }
-
-    .checkbox-area-label{
-      display: block;
-      width: $checkbox-size;
-      box-sizing: border-box;
-      text-align: left;
-      border: 2px solid #5da05d;
-      border-radius: 3px;
-      line-height: 1;
-      height: $checkbox-size / 2;
-      overflow: hidden;
-      cursor: pointer;
-
-      &-main{
-        display: none;
-
-        &:checked + .checkbox-area-label-box{
-          transform: translateX(100%);
-          background: #5da05d;
-        }
-      }
-
-      &-box{
-        display: inline-block;
-        height: $checkbox-size / 2 - 2px;
-        width: 50%;
-        background: #ddd;
-        transition: .3s;
-      }
-    }
-  }
-
   .dialog{
     position: fixed;
     z-index: 10;
@@ -213,11 +135,63 @@
         margin-bottom: 8px;
         padding: 10px 0;
         border-bottom: solid 1px #888;
+
+        label{
+          color: #1f6f00;
+        }
       }
     }
+  }
 
-    .label{
-      font-size: 1.1em;
+  .group{
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+
+    &-title{
+      display: block;
+      position: relative;
+      top: 0;
+      width: 100px;
+      text-align: center;
+      color: #1f6f00;
+      background-color: white;
+      margin: 0 auto;
+      z-index: 2;
+    }
+
+    &-inner{
+      display: block;
+      position: relative;
+      box-sizing: border-box;
+      border: 1px dashed #377937;
+      top: -14px;
+      width: 100%;
+      padding: 16px;
+      z-index: 1;
+    }
+  }
+
+  .warning{
+    display: flex;
+    justify-content: flex-start;
+    color: red;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin: 2px 0;
+
+    &:before{
+      display: block;
+      margin: 0 3px;
+      content: "!";
+      font-weight: normal;
+      text-align: center;
+      width: 1.2em;
+      height: 1.2em;
+      color: white;
+      background-color: red;
+      border: 1px solid red;
+      border-radius: 1.2em * 0.4;
     }
   }
 

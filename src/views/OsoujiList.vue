@@ -2,12 +2,16 @@
   <div id="osouji-list-root">
     <div id="title" v-text="listName"></div>
     <div class="btn-container">
-      <div class="checkbox-area">
+      <check-box v-model="showRemove">
+        編集:
+      </check-box>
+<!--      <div class="checkbox-area">
+        <div class="checkbox-area-text">編集:</div>
         <label class="checkbox-area-label">
           <input type="checkbox" class="checkbox-area-label-main" v-model="showRemove"/>
           <span class="checkbox-area-label-box"></span>
         </label>
-      </div>
+      </div>-->
     </div>
     <ul class="osouji-list" v-if="osoujiList.length">
       <osouji-list-item
@@ -34,6 +38,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import OsoujiListItem from '../components/OsoujiListItem'
 import ComButton from '../components/ComButton'
+import CheckBox from '../components/CheckBox'
 
 Vue.use(VueRouter)
 
@@ -43,7 +48,8 @@ export default {
   name: 'OsoujiList',
   components: {
     'osouji-list-item': OsoujiListItem,
-    'com-button': ComButton
+    'com-button': ComButton,
+    'check-box': CheckBox
   },
   data () {
     return {
@@ -78,7 +84,6 @@ export default {
     }
   },
   created: function () {
-    console.log('test')
     const cacheOsoujiList = localStorage.getItem('osoujiList')
     if (cacheOsoujiList && cacheOsoujiList.length > 0) {
       this.setOsoujiList(JSON.parse(cacheOsoujiList)).then(() => {
