@@ -199,6 +199,12 @@
     margin: 34px 0 55px
   }
 
+  .spacer-vertical{
+    display: block;
+    width: 100%;
+    height: 5px;
+  }
+
   #header-o{
     position: fixed;
     top: 0;

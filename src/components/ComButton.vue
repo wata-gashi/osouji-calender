@@ -43,6 +43,7 @@
   }
   .disabled{
     background-color: #444444;
+    opacity: 0.5;
   }
   .btn-light{
     background-color: #6792ba;

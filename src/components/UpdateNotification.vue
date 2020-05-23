@@ -88,9 +88,10 @@
   }
 
   .fade-enter-active, .fade-leave-active{
-    transition: opacity .3s;
+    transition: transform .3s, opacity .3s;
   }
   .fade-enter, .fade-leave-to{
+    transform: translateY(100%);
     opacity: 0;
   }
 </style>
