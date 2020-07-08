@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <header-o id="header-o"></header-o>
+    <header-o/>
     <div id="view-root">
       <keep-alive>
         <router-view/>
       </keep-alive>
     </div>
-    <footer-o></footer-o>
+    <footer-o/>
     <update-notification></update-notification>
   </div>
 </template>
@@ -20,6 +20,12 @@
       'header-o': HeaderO,
       'footer-o': FooterO,
       'update-notification': UpdateNotification
+    },
+    created: function () {
+      const cacheOsoujiList = localStorage.getItem('osoujiList')
+      if (cacheOsoujiList && cacheOsoujiList.length > 0) {
+        this.$store.commit('initOsoujiList', JSON.parse(cacheOsoujiList))
+      }
     }
   }
 </script>
@@ -134,7 +140,7 @@
       &-elements{
         margin-bottom: 8px;
         padding: 10px 0;
-        border-bottom: solid 1px #888;
+        border-bottom: solid 1px #adadad;
 
         label{
           color: #1f6f00;

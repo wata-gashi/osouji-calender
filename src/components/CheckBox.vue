@@ -1,12 +1,12 @@
 <template>
   <div class="checkbox-area">
     <label class="checkbox-area-text"><slot></slot></label>
-    <label class="checkbox-area-label"
+    <label class="checkbox-area-label" :class="{'disabled': readOnly}"
            @keypress.enter.space="$emit('change', !checked)"
            :tabindex="tabindex">
       <input type="checkbox" class="checkbox-area-label-main"
              v-bind:checked="checked"
-             @change="$emit('change', $event.target.checked)"/>
+             @change="$emit('change', $event.target.checked)" :disabled="readOnly">
       <span class="checkbox-area-label-box"></span>
     </label>
   </div>
@@ -22,7 +22,11 @@
       tabindex: {
         default: '0'
       },
-      checked: Boolean
+      checked: Boolean,
+      readOnly: {
+        type: Boolean,
+        default: false
+      }
     }
   }
 </script>
@@ -45,19 +49,27 @@
       width: $checkbox-size;
       box-sizing: border-box;
       text-align: left;
-      border: 2px solid #5da05d;
+      border: 2px solid #888;
       border-radius: 3px;
       line-height: 1;
       height: $checkbox-size / 2;
       overflow: hidden;
       cursor: pointer;
+      outline: none;
+
+      &:not(.disabled){
+        border-color: #5da05d;
+      }
 
       &-main{
         display: none;
 
         &:checked + .checkbox-area-label-box{
           transform: translateX(100%);
-          background: #5da05d;
+          background-color: #5da05d;
+        }
+        &:disabled + .checkbox-area-label-box{
+          background-color: #888;
         }
       }
 
@@ -65,7 +77,7 @@
         display: inline-block;
         height: $checkbox-size / 2 - 2px;
         width: 50%;
-        background: #ddd;
+        background-color: #ddd;
         transition: .3s;
       }
     }

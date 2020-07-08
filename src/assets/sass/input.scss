@@ -1,0 +1,113 @@
+label{
+  font-size: small;
+}
+input,select{
+  font-size: large;
+  margin: 0 0 2px;
+}
+
+.number-input{
+  width: 3em;
+  text-align: right;
+}
+
+#input-date{
+  width: 10em;
+}
+
+.input-label{
+  position: relative;
+  transition: color .3s;
+
+  & + .input-field{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    & > input, & > select{
+      border: none;
+      border-bottom: solid 1px #777;
+      transition: color .3s, border-color .3s;
+      outline: none;
+
+      &:focus{
+        border-color: #1f6f00;
+      }
+
+      &:disabled{
+        color: #444;
+        background-color: #ddd;
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+.error-input{
+  color: red;
+
+  & + .input-field{
+    & > input, & > select{
+      color: red;
+      border-color: #ff6565;
+
+      &:focus{
+        border-color: red;
+      }
+    }
+  }
+}
+
+.error-text{
+  position: absolute;
+  display: inline-flex;
+  left: 0;
+  top: 100%;
+  min-width: 100px;
+  margin: 10px auto 0;
+  padding: 3px;
+  color: red;
+  font-weight: bold;
+  font-size: x-small;
+  background-color: white;
+  border: red 1px solid;
+  border-radius: 4px;
+  box-sizing: border-box;
+  z-index: 5;
+
+  &:before, &:after{
+    display: block;
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: -7px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 5px 7px 5px;
+    border-color: transparent transparent red transparent;
+  }
+  &:after{
+    left: 6px;
+    top: -6px;
+    border-style: solid;
+    border-width: 0 4px 6.5px 4px;
+    border-color: transparent transparent white transparent;
+  }
+}
+
+.input-item, .input-item-reverse{
+  display: inline-flex;
+  margin: 2px;
+
+  .input-label{
+    margin: auto 0;
+  }
+}
+.input-item-reverse{
+  .input-label{
+    order: 1;
+  }
+  .input-field{
+    order: 0;
+  }
+}

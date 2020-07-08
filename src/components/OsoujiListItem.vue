@@ -1,9 +1,8 @@
 <template>
   <transition name="fade">
-    <li class="osouji-item" @click="bodyClick">
+    <li class="osouji-item" @click="$emit('osoujiClick', osouji.id)">
       {{osouji.name}}
-      <div class="remove" :target="removeVisible.toString()"
-           @click.stop="$emit('remove', osouji.id)">
+      <div class="remove" :target="removeVisible.toString()" @click.stop="remove">
         削除
       </div>
     </li>
@@ -23,12 +22,8 @@ export default {
     }
   },
   methods: {
-    bodyClick () {
-      this.$router.push({
-        name: 'osouji',
-        params: {
-          id: this.osouji.id
-        }})
+    remove () {
+      this.$store.commit('removeOsouji', this.osouji.id)
     }
   }
 }

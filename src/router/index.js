@@ -10,10 +10,12 @@ Vue.use(Router)
 
 const routes = [
   {
+    name: 'home',
     path: '/',
     component: Home
   },
   {
+    name: 'list',
     path: '/list',
     component: OsoujiList,
     children: [
@@ -28,12 +30,16 @@ const routes = [
         name: 'osouji',
         path: '/list/osouji/:id',
         components: {
-          'osouji-dialog': OsoujiInfo
+          'oi': OsoujiInfo
+        },
+        props: {
+          'oi': true
         }
       }
     ]
   },
   {
+    name: 'setting',
     path: '/setting',
     component: Setting
   }
