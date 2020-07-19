@@ -1,9 +1,9 @@
 <template>
   <div>
-    <ul class="osouji-list" v-if="getTodoList.length">
-      <template v-for="obj in getTodoList">
-        <li v-text="obj.nextDate.toLocaleDateString()"></li>
-        <osouji-list-item :key="obj.osouji.id" :osouji="obj.osouji"/>
+    <ul class="osouji-list" v-if="Object.keys(getTodoList).length">
+      <template v-for="(value, name) in getTodoList">
+        <li v-text="name"></li>
+        <osouji-list-item :key="osouji.id" :osouji="osouji" @osoujiClick="" v-for="osouji in value"></osouji-list-item>
       </template>
     </ul>
   </div>
@@ -47,7 +47,15 @@
             }
           }
         }
-        return list
+        const todoList = {}
+        list.forEach(data => {
+          const date = this.afterWhen(data.nextDate)
+          let li = todoList[date]
+          if (li === undefined) li = []
+          li.push(data.osouji)
+          todoList[date] = li
+        })
+        return todoList
       }
     },
     methods: {
@@ -75,6 +83,26 @@
       getToday () {
         const today = new Date()
         return new Date(today.getFullYear(), today.getMonth(), today.getDate())
+      },
+      afterWhen (date) {
+        const today = this.getToday()
+        if (date.getTime() === today.getTime()) return '今日'
+        else if (date > today) {
+          let between = date.getTime() - today.getTime()
+          between /= 1000
+          between /= 86400
+          if (between === 1) return '明日'
+          else if (between === 2) return '明後日'
+          else if (between <= 31) {
+            if (between % 7 === 0) return (between / 7) + '週間後'
+            return between + '日後'
+          }
+          return date.toLocaleDateString() + '(' + this.$store.state.days[date.getDay()] + ')'
+        }
+        return 'error'
+      },
+      clickOsouji (id) {
+
       }
     }
   }

@@ -3,16 +3,12 @@ label{
 }
 input,select{
   font-size: large;
-  margin: 0 0 2px;
+  margin: 0;
 }
 
 .number-input{
   width: 3em;
   text-align: right;
-}
-
-#input-date{
-  width: 10em;
 }
 
 .input-label{
@@ -23,11 +19,12 @@ input,select{
     position: relative;
     display: flex;
     flex-direction: column;
-    & > input, & > select{
+    & > input{
       border: none;
       border-bottom: solid 1px #777;
-      transition: color .3s, border-color .3s;
+      transition: color .3s, border-color .3s, opacity .3s, background-color .3s;
       outline: none;
+      background-color: white;
 
       &:focus{
         border-color: #1f6f00;
@@ -46,7 +43,7 @@ input,select{
   color: red;
 
   & + .input-field{
-    & > input, & > select{
+    & > input{
       color: red;
       border-color: #ff6565;
 
@@ -97,7 +94,7 @@ input,select{
 
 .input-item, .input-item-reverse{
   display: inline-flex;
-  margin: 2px;
+  margin: auto 2px;
 
   .input-label{
     margin: auto 0;

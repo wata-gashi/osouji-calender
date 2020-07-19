@@ -11,17 +11,14 @@
       <transition name="fade-opacity">
         <div class="cycle" v-show="innerCycleListShow">
           <div class="cycle-setting">
-            <div class="input-item">
-              <label for="cycle-select" class="input-label">
-                周期単位
-              </label>
-              <div class="input-field">
-                <select id="cycle-select" v-model="innerCycle" tabindex="3" :disabled="readOnly">
-                  <option v-for="c in cycleList"
-                          :value="c.value" v-text="c.name"></option>
-                </select>
-              </div>
-            </div>
+            <select-o v-model="innerCycle" :disabled="readOnly">
+              <template v-slot:label-name>周期単位</template>
+              <template v-slot:default>
+                <option v-for="c in cycleList"
+                        :value="c.value" v-text="c.name"></option>
+              </template>
+              <template v-slot:warning>周期単位を選択してください</template>
+            </select-o>
             <div class="input-item-reverse" v-if="isNumberInput">
               <label for="number-input" class="input-label">
                 <span v-if="innerCycle===this.cycleList[1].value">
@@ -42,26 +39,15 @@
             <div v-show="warningNotNumber" class="warning">
               数値を入力してください。
             </div>
-            <div class="input-item-reverse" v-if="innerCycle==='dtd'">
-              <label for="select-day" class="input-label">曜日</label>
-              <div class="input-field">
-                <select id="select-day" v-model="innerSelectDay" tabindex="5" :disabled="readOnly">
-                  <option v-for="(day, index) in $store.state.days"
-                          :value="index"
-                          v-text="day"></option>
-                </select>
-              </div>
-            </div>
+            <select-o v-if="innerCycle==='dtd'" v-model="innerSelectDay" :disabled="readOnly" :reverse-label="true">
+              <template v-slot:label-name>曜日</template>
+              <template v-slot:default>
+                <option v-for="(day, index) in $store.state.days" :value="index" v-text="day"></option>
+              </template>
+              <template v-slot:warning>曜日を選択してください</template>
+            </select-o>
           </div>
           <span class="spacer-vertical"></span>
-          <!--label class="input-label" :class="{'error-input': $v.inputDateRaw.$error}">
-            開始日
-            <input type="date" id="input-date"
-                   :min="formatDate(startDate)" v-model="inputDate"
-                   :step="dateStep" tabindex="7" pattern="\d{4}-\d{2}-\d{2}"
-                   @input="setDate($event.target.value)" required>
-            <span class="error-text" v-if="$v.inputDateRaw.$error">有効な値を入力してください。</span>
-          </label-->
           <date-input :min-date="startDate" :input-date="innerInputDate" :step="dateStep" :read-only="readOnly"
                       @date-error="setDateError" @update-year="updateYear"
                       @update-month="updateMonth" @update-date="updateDate" ref="dateInput"/>
@@ -74,12 +60,14 @@
 <script>
   import CheckBox from '../components/CheckBox'
   import DateInput from '../components/DateInput'
+  import SelectO from './SelectO'
 
   export default {
     name: 'CycleSetting',
     components: {
       'check-box': CheckBox,
-      'date-input': DateInput
+      'date-input': DateInput,
+      'select-o': SelectO
     },
     props: {
       readOnly: {
@@ -254,6 +242,7 @@
   }
 
   .cycle-setting{
+    display: flex;
   }
 
   .fade-opacity-enter-active, .fade-opacity-leave-active{

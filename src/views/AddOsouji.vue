@@ -101,13 +101,7 @@
 
 <style lang="scss" scoped>
   @import "../assets/sass/input";
-
-  .add-dialog-inner{
-    height: 400px;
-    overflow-y: auto;
-
-    #text-osouji-name{
-      width: 12em;
-    }
+  .input-field > input{
+    width: 12em;
   }
 </style>

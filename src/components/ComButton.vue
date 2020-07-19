@@ -36,6 +36,7 @@
     transition: all 200ms ease-in-out;
     text-decoration: none;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 
     &:not(.disabled):hover{
       background-color: #42b983;

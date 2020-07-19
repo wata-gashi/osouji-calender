@@ -5,7 +5,7 @@ import router from './router'
 import store from './store'
 import EventHub from './EventHub'
 
-Vue.config.productionTip = true
+Vue.config.productionTip = false
 Vue.use(Vuelidate)
 Vue.use(EventHub)
 Vue.directive('visible', function (el, binding, vnode) {

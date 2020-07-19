@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from '../views/Home'
 import OsoujiList from '../views/OsoujiList'
 import AddOsouji from '../views/AddOsouji'
-import OsoujiInfo from '../views/OsoujiInfo'
+import OsoujiEdit from '../views/OsoujiEdit'
 import Setting from '../views/Setting'
 
 Vue.use(Router)
@@ -30,7 +30,7 @@ const routes = [
         name: 'osouji',
         path: '/list/osouji/:id',
         components: {
-          'oi': OsoujiInfo
+          'oi': OsoujiEdit
         },
         props: {
           'oi': true

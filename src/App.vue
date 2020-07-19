@@ -68,49 +68,6 @@
     font-size: 14px / 1.6;
     max-width: 350px;
     list-style: none;
-
-    .osouji-item{
-      position: relative;
-      padding: 7px 5px 7px 10px;
-      color: #5da05d;
-      margin-bottom: 5px;
-      background: #cff6cf;
-      border-left: solid 5px #377937;
-      box-shadow: 1px 1px 2px rgba(#000, 0.1);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      cursor: pointer;
-
-      .remove{
-        display: flex;
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100%;
-        padding: 0 15px;
-        background-color: #ff6969;
-        font-weight: normal;
-        font-size: 1.2em;
-        color: rgba(white, 0.9);
-        align-items: center;
-        justify-content: center;
-        transition: transform .3s, opacity .3s, background-color .2s;
-        opacity: 1;
-
-        &[target="false"]{
-          transform: translateX(100%);
-          opacity: 0;
-        }
-
-        &[target="true"]{
-          cursor: pointer;
-
-          &:hover{
-            background-color: #d01818;
-          }
-        }
-      }
-    }
   }
 
   .dialog{
@@ -129,6 +86,8 @@
       background-color: white;
       padding: 30px;
       width: 300px;
+      max-height: 80%;
+      overflow-y: auto;
 
       .title{
         text-align: center;
@@ -173,7 +132,7 @@
       border: 1px dashed #377937;
       top: -14px;
       width: 100%;
-      padding: 16px;
+      padding: 10px;
       z-index: 1;
     }
   }

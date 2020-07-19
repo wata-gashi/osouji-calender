@@ -56,6 +56,8 @@
       overflow: hidden;
       cursor: pointer;
       outline: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color .3s;
 
       &:not(.disabled){
         border-color: #5da05d;
@@ -78,7 +80,7 @@
         height: $checkbox-size / 2 - 2px;
         width: 50%;
         background-color: #ddd;
-        transition: .3s;
+        transition: transform .3s, background-color .3s;
       }
     }
   }

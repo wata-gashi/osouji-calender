@@ -2,43 +2,42 @@
     <div class="date-input">
       <span>開始日</span>
       <div class="date-input-inner">
-        <div class="input-item-reverse">
-          <label for="date-select-year" class="input-label" :class="{'error-input': isErrorYear}">年</label>
-          <div class="input-field">
-            <select id="date-select-year" class="date-select" v-model="year" tabindex="0" :disabled="readOnly">
-              <option disabled value="">西暦</option>
-              <option v-for="y in getYearList" :value="y" v-text="y"></option>
-            </select>
-            <span class="error-text" v-if="isErrorYear">年を選択してください。</span>
-          </div>
-        </div>
-        <div class="input-item-reverse">
-          <label for="date-select-month" class="input-label" :class="{'error-input': isErrorMonth}">月</label>
-          <div class="input-field">
-            <select id="date-select-month" class="date-select" v-model="month" tabindex="0" :disabled="readOnly">
-              <option disabled value="">月</option>
-              <option v-for="m in getMonthList" :value="m" v-text="m"></option>
-            </select>
-            <span class="error-text" v-if="isErrorMonth">月を選択してください。</span>
-          </div>
-        </div>
-        <div class="input-item-reverse">
-          <label for="date-select-date" class="input-label" :class="{'error-input': isErrorDate}">日</label>
-          <div class="input-field">
-            <select id="date-select-date" class="date-select" v-model="date" tabindex="0" :disabled="readOnly">
-              <option disabled value="">日</option>
-              <option v-for="d in getDateList" :value="d" v-text="d"></option>
-            </select>
-            <span class="error-text" v-if="isErrorDate">日を選択してください。</span>
-          </div>
-        </div>
+        <select-o v-model="year" :show-error="isErrorYear" :reverse-label="true" :disabled="readOnly">
+          <template v-slot:label-name>年</template>
+          <template v-slot:default>
+            <option disabled value="">西暦</option>
+            <option v-for="y in getYearList" :value="y" v-text="y"></option>
+          </template>
+          <template v-slot:warning>年を選択してください</template>
+        </select-o>
+        <select-o v-model="month" :show-error="isErrorMonth" :reverse-label="true" :disabled="readOnly">
+          <template v-slot:label-name>月</template>
+          <template v-slot:default>
+            <option disabled value="">月</option>
+            <option v-for="m in getMonthList" :value="m" v-text="m"></option>
+          </template>
+          <template v-slot:warning>月を選択してください</template>
+        </select-o>
+        <select-o v-model="date" :show-error="isErrorDate" :reverse-label="true" :disabled="readOnly">
+          <template v-slot:label-name>日</template>
+          <template v-slot:default>
+            <option disabled value="">日</option>
+            <option v-for="d in getDateList" :value="d" v-text="d"></option>
+          </template>
+          <template v-slot:warning>日を選択してください</template>
+        </select-o>
       </div>
     </div>
 </template>
 
 <script>
+  import SelectO from './SelectO'
+
   export default {
     name: 'DateInput',
+    components: {
+      'select-o': SelectO
+    },
     props: {
       minDate: {
         type: Date,
@@ -146,15 +145,14 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "../assets/sass/input";
-
-  .date-input > span{
-    font-size: 0.9em;
-  }
-
-  .date-input-inner{
+  .date-input{
     display: flex;
-    margin: 0 auto;
-    justify-content: space-around;
+    flex-direction: column;
+
+    &-inner{
+      display: flex;
+      margin: 0 auto;
+      justify-content: space-around;
+    }
   }
 </style>
