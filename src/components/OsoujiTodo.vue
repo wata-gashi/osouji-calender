@@ -3,9 +3,10 @@
     <ul class="osouji-list" v-if="Object.keys(getTodoList).length">
       <template v-for="(value, name) in getTodoList">
         <li v-text="name"></li>
-        <osouji-list-item :key="osouji.id" :osouji="osouji" @osoujiClick="" v-for="osouji in value"></osouji-list-item>
+        <osouji-list-item :key="osouji.id" :osouji="osouji" @osoujiClick="clickOsouji($event)" v-for="osouji in value"></osouji-list-item>
       </template>
     </ul>
+    <router-view name="oi"></router-view>
   </div>
 </template>
 
@@ -102,7 +103,7 @@
         return 'error'
       },
       clickOsouji (id) {
-
+        this.$router.push({name: 'info', params: {id: id}})
       }
     }
   }

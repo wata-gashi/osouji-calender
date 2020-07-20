@@ -22,13 +22,13 @@
             <div class="input-item-reverse" v-if="isNumberInput">
               <label for="number-input" class="input-label">
                 <span v-if="innerCycle===this.cycleList[1].value">
-                  日置き
+                  日間隔
                 </span>
                 <span v-else-if="innerCycle===this.cycleList[2].value">
-                  週間置き
+                  週間隔
                 </span>
                 <span v-else-if="innerCycle===this.cycleList[3].value">
-                  ヵ月置き
+                  ヵ月間隔
                 </span>
               </label>
               <div class="input-field">

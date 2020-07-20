@@ -21,7 +21,7 @@
       <com-button :click-event="open">追加</com-button>
     </div>
     <router-view name="add-dialog"></router-view>
-    <router-view name="oi"></router-view>
+    <router-view name="oe"></router-view>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="dialog">
     <div class="dialog-inner">
-      <div class="title">詳細情報</div>
+      <div class="title">おそうじ情報編集</div>
       <div class="btn-container">
         <check-box v-model="edit">編集:</check-box>
       </div>

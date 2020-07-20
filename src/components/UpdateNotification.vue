@@ -29,15 +29,12 @@
     },
     data () {
       return {
-        version: '0.2.1',
+        version: '0.2.2',
         visible: false,
         message: '新しいバージョンが配信されています。'
       }
     },
     methods: {
-      showNotification () {
-        this.visible = true
-      },
       updateCache () {
         setTimeout(function () {
           location.reload()
@@ -55,7 +52,7 @@
 
               if (this.version !== jsondata.version) {
                 this.version = jsondata.version
-                this.showNotification()
+                this.visible = true
               }
             }
           }
