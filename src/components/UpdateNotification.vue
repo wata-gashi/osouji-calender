@@ -29,7 +29,7 @@
     },
     data () {
       return {
-        version: '0.2.2',
+        version: '0.2.3',
         visible: false,
         message: '新しいバージョンが配信されています。'
       }

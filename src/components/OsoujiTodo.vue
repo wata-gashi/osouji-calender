@@ -2,10 +2,18 @@
   <div>
     <ul class="osouji-list" v-if="Object.keys(getTodoList).length">
       <template v-for="(value, name) in getTodoList">
-        <li v-text="name"></li>
-        <osouji-list-item :key="osouji.id" :osouji="osouji" @osoujiClick="clickOsouji($event)" v-for="osouji in value"></osouji-list-item>
+        <li class="list-group-title" v-text="name"></li>
+        <ul class="list-group">
+          <osouji-list-item :key="obj.osouji.id" :osouji="obj.osouji"
+                            :nextDate="obj.nextDate"
+                            @osoujiClick="clickOsouji($event)" v-for="obj in value"></osouji-list-item>
+        </ul>
       </template>
     </ul>
+    <div v-else>
+      <span>お掃除が登録されていません。</span><br>
+      <span><router-link :to="{name: 'list'}">「おそうじリスト」</router-link>から登録してください。</span>
+    </div>
     <router-view name="oi"></router-view>
   </div>
 </template>
@@ -35,11 +43,11 @@
               nextDate: this.getNextDate(this.osoujiList[i])
             }
             if (oso.nextDate === undefined) {
-              list.splice(0, 0, oso)
+              list.splice(i, 0, oso)
               continue
             }
             for (let j = 0; j < i; j++) {
-              if (oso.nextDate.valueOf() < list[j].nextDate.valueOf()) {
+              if (list[j].nextDate === undefined || oso.nextDate.valueOf() < list[j].nextDate.valueOf()) {
                 list.splice(j, 0, oso)
                 break
               } else if (j === i - 1) {
@@ -50,10 +58,15 @@
         }
         const todoList = {}
         list.forEach(data => {
-          const date = this.afterWhen(data.nextDate)
+          let date
+          if (data.nextDate === undefined) {
+            date = '周期未設定'
+          } else {
+            date = this.afterWhen(data.nextDate)
+          }
           let li = todoList[date]
           if (li === undefined) li = []
-          li.push(data.osouji)
+          li.push(data)
           todoList[date] = li
         })
         return todoList
@@ -62,7 +75,8 @@
     methods: {
       getNextDate (osouji) {
         const today = this.getToday()
-        if (!osouji.enableCycle || osouji.cycle.type === 'every') return today
+        if (!osouji.enableCycle) return undefined
+        else if (osouji.cycle.type === 'every') return today
         const nextDate = new Date(osouji.cycle.startDate)
         while (nextDate.valueOf() < today.valueOf()) {
           switch (osouji.cycle.type) {
@@ -109,6 +123,22 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  .osouji-list{
 
+
+    .list-group{
+      padding-left: 1.5em;
+      padding-right: 1em;
+
+      &:not(:last-child){
+        margin-bottom: 1.5em;
+      }
+    }
+
+    .list-group-title{
+      border-bottom: dashed 1px;
+      margin-bottom: 0.3em;
+    }
+  }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div id="footer-o">
     <input type="radio" class="tab-radio" id="1"
-           value="/" v-model="inTab">
-    <label class="tab-button" for="1">ホーム</label>
+           value="todo" v-model="inTab">
+    <label class="tab-button" for="1">予定表</label>
 
     <input type="radio" class="tab-radio" id="2"
            value="list" v-model="inTab">
@@ -22,20 +22,16 @@
         inTab: 'init'
       }
     },
-    methods: {
-      where (from) {
-        let path = from.split('/')
-        if (!path[1]) this.inTab = '/'
-        else this.inTab = path[1]
-      }
-    },
     watch: {
       inTab (to, from) {
-        if (from !== 'init' && to !== from) this.$router.push(to)
+        if (from !== 'init' && to !== from && to !== this.$route.matched[0].name) this.$router.push({name: to})
+      },
+      $route (to, _) {
+        this.inTab = to.matched[0].name
       }
     },
     created () {
-      this.where(this.$route.path)
+      this.inTab = this.$route.matched[0].name
     }
   }
 </script>

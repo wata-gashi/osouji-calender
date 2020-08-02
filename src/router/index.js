@@ -11,13 +11,19 @@ Vue.use(Router)
 
 const routes = [
   {
-    name: 'home',
     path: '/',
+    redirect: {
+      name: 'todo'
+    }
+  },
+  {
+    name: 'todo',
+    path: '/todo',
     component: Home,
     children: [
       {
         name: 'info',
-        path: '/info/:id',
+        path: 'info/:id',
         components: {
           'oi': OsoujiInfo
         },
@@ -34,14 +40,14 @@ const routes = [
     children: [
       {
         name: 'add',
-        path: '/list/add',
+        path: 'add',
         components: {
           'add-dialog': AddOsouji
         }
       },
       {
         name: 'osouji',
-        path: '/list/osouji/:id',
+        path: 'osouji/:id',
         components: {
           'oe': OsoujiEdit
         },

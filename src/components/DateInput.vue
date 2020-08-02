@@ -2,26 +2,23 @@
     <div class="date-input">
       <span>開始日</span>
       <div class="date-input-inner">
-        <select-o v-model="year" :show-error="isErrorYear" :reverse-label="true" :disabled="readOnly">
+        <select-o v-model.number="year" :show-error="isErrorYear" :reverse-label="true" :disabled="readOnly">
           <template v-slot:label-name>年</template>
           <template v-slot:default>
-            <option disabled value="">西暦</option>
             <option v-for="y in getYearList" :value="y" v-text="y"></option>
           </template>
           <template v-slot:warning>年を選択してください</template>
         </select-o>
-        <select-o v-model="month" :show-error="isErrorMonth" :reverse-label="true" :disabled="readOnly">
+        <select-o v-model.number="month" :show-error="isErrorMonth" :reverse-label="true" :disabled="readOnly">
           <template v-slot:label-name>月</template>
           <template v-slot:default>
-            <option disabled value="">月</option>
             <option v-for="m in getMonthList" :value="m" v-text="m"></option>
           </template>
           <template v-slot:warning>月を選択してください</template>
         </select-o>
-        <select-o v-model="date" :show-error="isErrorDate" :reverse-label="true" :disabled="readOnly">
+        <select-o v-model.number="date" :show-error="isErrorDate" :reverse-label="true" :disabled="readOnly">
           <template v-slot:label-name>日</template>
           <template v-slot:default>
-            <option disabled value="">日</option>
             <option v-for="d in getDateList" :value="d" v-text="d"></option>
           </template>
           <template v-slot:warning>日を選択してください</template>

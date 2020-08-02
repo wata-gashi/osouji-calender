@@ -97,7 +97,7 @@
         return Object.keys(this.osouji).length > 0
       },
       close () {
-        this.$router.push({name: 'home'})
+        this.$router.push({name: 'todo'})
       },
       goToEdit () {
         this.$router.push({name: 'osouji', params: {id: this.id}})

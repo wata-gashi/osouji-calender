@@ -51,6 +51,7 @@
   }
   .btn-container{
     display: flex;
+    flex-direction: row;
     justify-content: flex-end;
 
     &-left{
@@ -60,6 +61,10 @@
     &-spacer{
       content: "";
       width: 5px;
+    }
+
+    &-centering{
+      justify-content: space-around;
     }
   }
   .osouji-list{
@@ -181,5 +186,6 @@
     font-size: larger;
     font-weight: bold;
     color: white;
+    z-index: 10;
   }
 </style>

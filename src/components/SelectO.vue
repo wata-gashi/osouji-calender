@@ -27,7 +27,9 @@
       event: 'change'
     },
     props: {
-      selectValue: [String, Number],
+      selectValue: {
+        type: [String, Number]
+      },
       showError: {
         type: Boolean,
         default: false
@@ -51,21 +53,30 @@
     methods: {
       updateDisplay (dom) {
         if (dom !== null && dom !== undefined) {
-          this.display = dom.options[dom.selectedIndex].text
+          if (dom.selectedIndex === -1) {
+            this.display = ''
+          } else {
+            this.display = dom.options[dom.selectedIndex].text
+          }
         }
       }
     },
     watch: {
       selectDom: function (value) {
-        this.updateDisplay(value)
+        this.$nextTick(() => {
+          this.updateDisplay(value)
+        })
       },
       selectValue: function () {
-        this.updateDisplay(this.selectDom)
+        // TODO たまに文字が表示されないときがある
+        this.$nextTick(() => {
+          this.updateDisplay(this.selectDom)
+        })
       }
     },
     mounted () {
       this.id = 'select-o-' + this._uid
-      this.$nextTick(function () {
+      this.$nextTick(() => {
         this.selectDom = this.$refs[this.id]
       })
     }

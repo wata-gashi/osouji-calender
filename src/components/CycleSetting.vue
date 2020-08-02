@@ -39,7 +39,7 @@
             <div v-show="warningNotNumber" class="warning">
               数値を入力してください。
             </div>
-            <select-o v-if="innerCycle==='dtd'" v-model="innerSelectDay" :disabled="readOnly" :reverse-label="true">
+            <select-o v-if="innerCycle==='dtd'" v-model.number="innerSelectDay" :disabled="readOnly" :reverse-label="true">
               <template v-slot:label-name>曜日</template>
               <template v-slot:default>
                 <option v-for="(day, index) in $store.state.days" :value="index" v-text="day"></option>

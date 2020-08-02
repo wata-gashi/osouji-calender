@@ -33,6 +33,10 @@ export default new Vuex.Store({
     days: ['日', '月', '火', '水', '木', '金', '土']
   },
   mutations: {
+    resetList (state) {
+      state.osoujiList = []
+      this.commit('saveOsoujiList')
+    },
     initOsoujiList (state, data) {
       this.dispatch('setOsoujiList', data).then(() => {
         state.osoujiList.forEach(osouji => {
